@@ -1,6 +1,6 @@
 import streamlit as st
 import json
-import os
+from ai_vision import read_AI, load_data
 
 st.set_page_config(
     page_title="The Mosaic Mind of AI",
@@ -32,7 +32,7 @@ font_css = f"""
     .title-box {{
         padding: 10px;
         margin: 10px;
-        background-color: #000;
+        background-color: #333;
         color: {white_color};
         border-radius: 10px;
         box-shadow: 0.4px 6px rgba(0,0,0,0.1);
@@ -166,14 +166,28 @@ html_content = f"""
 </html>
 """
 
-# Function to display the HTML in Streamlit
-def main():
-    st.title("'Pride and Prejudice' Social Architecture")
-    st.subheader("Collection of ML Projects Created by [Fay Cai](https://www.faycai.com)")
-    st.write("Read <Pride and Prejudice> in [AI Vision](https://www.faycai.com) | More Info about this [Graphic Network Model](https://www.faycai.com/data-science/the-mosaic-mind-of-ai-app)")
-
+def show_main_page():
     st.components.v1.html(html_content, height=800, scrolling=True)
 
+def show_ai_vision_page():
+    st.write("##### Named Entity Recognition in Natural Language Processing (NLP)")
+    NER, text = load_data()
+    read_AI(NER, text)
+    # You can add more content here related to AI Vision
+
+
+def main():
+    st.title("<Pride and Prejudice> Reading with AI Mind")
+    st.subheader("Collection of ML Projects Created by [Fay Cai](https://www.faycai.com)")
+    st.write("More Info about this [Graphic Network Model and AI Vision](https://www.faycai.com/data-science/the-mosaic-mind-of-ai-app)")
+    # Dropdown for navigation
+    page = st.selectbox("Distant Reading in", ["Social Architecture", "AI Vision"])
+
+    # Show the selected page
+    if page == "Social Architecture":
+        show_main_page()
+    elif page == "AI Vision":
+        show_ai_vision_page()
 
 if __name__ == '__main__':
     main()
